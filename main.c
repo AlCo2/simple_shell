@@ -13,14 +13,15 @@ int main(int argc, char **argv){
 	int status;
 	pid_t pid;
 	while(1){
-		pid = fork();
-		wait(&status);
 		printf("$ ");
 		nread = getline(&line, &len, stdin);
 		line[nread-1] = '\0';
 		char* token = strtok(line," ");
-		if(pid==0)
+		if(fork()==0)
 			execve(token, NULL, NULL);
+
+		wait(&status);
+
 	}
 	return 0;
 }
