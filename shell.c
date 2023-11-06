@@ -4,6 +4,7 @@
 #include <string.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+#include <sys/stat.h>
 
 int main(int argc, char **argv)
 {
@@ -11,16 +12,23 @@ int main(int argc, char **argv)
 	size_t len = 0;
 	ssize_t nread;
 	int status;
-	char *token;
+	char *token = NULL;
 	char **av = NULL;
-	while(1)
+	while (1)
 	{
+		struct stat st;
 		printf("\n$ ");
 		nread = getline(&line, &len, stdin);
 		line[nread-1] = '\0';
 		token = strtok(line, " ");
+		if (stat(token, &st) != 0)
+		{
+			printf("%s: 1: not found\n", token);
+			continue;
+		}
 		size_t av_count = 0;
-		while(token!=NULL){
+		while (token != NULL)
+		{
 			av_count++;
 			av = (char**)realloc(av, av_count * sizeof(char*));
 			if(av==NULL){
@@ -36,13 +44,14 @@ int main(int argc, char **argv)
 			token = strtok(NULL, " ");
 		}
 		free(token);
-		if(fork() == 0)
+		if (fork() == 0)
 		{
 			if(execve(av[0], av, NULL) == -1){
 				perror("Error");
 			}
 		}
-		for(size_t i=0;i<av_count;i++){
+		for (size_t i=0;i<av_count;i++)
+		{
 			free(av[i]);
 		}
 		wait(&status);
