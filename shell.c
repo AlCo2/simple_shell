@@ -22,24 +22,24 @@ int main(int argc, char **argv)
 		nread = getline(&line, &len, stdin);
 		line[nread - 1] = '\0';
 		token = strtok(line, " ");
-		if(stat(token, &st) != 0)
+		if (stat(token, &st) != 0)
 		{
 			printf("%s: 1: not found\n", token);
 			continue;
 		}
 		size_t av_count = 0;
-		
 		while (token != NULL)
 		{
 			av_count++;
 			av = (char **)realloc(av, av_count * sizeof(char *));
-			if(av == NULL)
+			if (av == NULL)
 			{
 				perror("out of memory");
 				return (1);
 			}
 			av[av_count - 1] = malloc(strlen(token) + 1);
-			if(av[av_count - 1] == NULL){
+			if (av[av_count - 1] == NULL)
+			{
 				perror("out of memory");
 				return (1);
 			}
@@ -49,11 +49,10 @@ int main(int argc, char **argv)
 		free(token);
 		if (fork() == 0)
 		{
-			if(execve(av[0], av, NULL) == -1)
+			if (execve(av[0], av, NULL) == -1)
 				perror("Error");
-			
 		}
-		for (size_t i=0;i<av_count;i++)
+		for (size_t i = 0; i < av_count; i++)
 		{
 			free(av[i]);
 		}
