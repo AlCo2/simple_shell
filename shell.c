@@ -10,10 +10,27 @@
 char *check_path(char *token,char **PATHS)
 {
 	struct stat st;
+	char *temp = NULL;
+	if(strchr(token, '/')!=NULL){
+		temp = strdup(token);
+		if(temp==NULL){
+			perror("Out of memory");
+			exit(1);
+		}
+		if(stat(temp, &st) == 0){
+			return temp;
+		}
+		free(temp);
+		return NULL;
+	}
 	int i=0;
 	while (PATHS[i])
 	{
 		char *temp = malloc(strlen(PATHS[i])+strlen(token)+2);
+		if(temp==NULL){
+			perror("out of memory");
+			exit(1);
+		}
 		strcpy(temp, PATHS[i]);
 		strcat(temp, "/");
 		strcat(temp, token);
@@ -36,7 +53,15 @@ char **create_path_list(){
         while(token){
                 i++;
                 list = (char**)realloc(list,i*sizeof(char*));
+		if(list==NULL){
+			perror("Out of memory");
+			exit(1);
+		}
                 list[i-1] = malloc(strlen(token)+1);
+		if(list[i-1]==NULL){
+			perror("Out of Memory");
+			exit(1);
+		}
                 strcpy(list[i-1], token);
 		token = strtok(NULL, ":");
         }
@@ -47,7 +72,10 @@ void executeCMD(char **av){
 	if (fork() == 0)
 	{
 		if (execve(av[0], av, NULL) == -1)
+		{
 			perror("Error");
+			exit(1);
+		}
 	}
 }
 
@@ -76,7 +104,7 @@ int main()
 		while (token != NULL)
 		{
 			av_count++;
-			av = (char **)realloc(av, av_count * sizeof(char *));
+			av = (char **)malloc(av_count * sizeof(char *));
 			if (av == NULL)
 			{
 				perror("out of memory");
@@ -92,13 +120,16 @@ int main()
 			token = strtok(NULL, " ");
 		}
 		free(token);
-		if(result){
-			if(fork()==0){
-				execve(result, av, NULL);
+		if (result){
+			free(av[0]);
+			av[0] = malloc(strlen(result)+1);
+			if(av[0]==NULL){
+				perror("Out of memory");
+				return (1);
 			}
+			strcpy(av[0], result);
 		}
-		else
-			executeCMD(av);
+		executeCMD(av);
 		for (i = 0; i < av_count; i++)
 		{
 			free(av[i]);
