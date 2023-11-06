@@ -14,41 +14,44 @@ int main(int argc, char **argv)
 	int status;
 	char *token = NULL;
 	char **av = NULL;
+	struct stat st;
+
 	while (1)
 	{
-		struct stat st;
 		printf("\n$ ");
 		nread = getline(&line, &len, stdin);
-		line[nread-1] = '\0';
+		line[nread - 1] = '\0';
 		token = strtok(line, " ");
-		if (stat(token, &st) != 0)
+		if(stat(token, &st) != 0)
 		{
 			printf("%s: 1: not found\n", token);
 			continue;
 		}
 		size_t av_count = 0;
+		
 		while (token != NULL)
 		{
 			av_count++;
-			av = (char**)realloc(av, av_count * sizeof(char*));
-			if(av==NULL){
+			av = (char **)realloc(av, av_count * sizeof(char *));
+			if(av == NULL)
+			{
 				perror("out of memory");
-				return 1;
+				return (1);
 			}
-			av[av_count-1] = malloc(strlen(token)+1);
-			if(av[av_count-1]==NULL){
+			av[av_count - 1] = malloc(strlen(token) + 1);
+			if(av[av_count - 1] == NULL){
 				perror("out of memory");
-				return 1;
+				return (1);
 			}
-			strcpy(av[av_count-1], token);
+			strcpy(av[av_count - 1], token);
 			token = strtok(NULL, " ");
 		}
 		free(token);
 		if (fork() == 0)
 		{
-			if(execve(av[0], av, NULL) == -1){
+			if(execve(av[0], av, NULL) == -1)
 				perror("Error");
-			}
+			
 		}
 		for (size_t i=0;i<av_count;i++)
 		{
@@ -56,6 +59,6 @@ int main(int argc, char **argv)
 		}
 		wait(&status);
 	}
-	return 0;
+	return (0);
 }
 
