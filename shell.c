@@ -6,7 +6,7 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 
-int main(int argc, char **argv)
+int main()
 {
 	char *line = NULL;
 	size_t len = 0;
@@ -18,6 +18,9 @@ int main(int argc, char **argv)
 
 	while (1)
 	{
+		size_t av_count = 0;
+		size_t i;
+
 		printf("\n$ ");
 		nread = getline(&line, &len, stdin);
 		line[nread - 1] = '\0';
@@ -27,7 +30,6 @@ int main(int argc, char **argv)
 			printf("%s: 1: not found\n", token);
 			continue;
 		}
-		size_t av_count = 0;
 		while (token != NULL)
 		{
 			av_count++;
@@ -52,7 +54,7 @@ int main(int argc, char **argv)
 			if (execve(av[0], av, NULL) == -1)
 				perror("Error");
 		}
-		for (size_t i = 0; i < av_count; i++)
+		for (i = 0; i < av_count; i++)
 		{
 			free(av[i]);
 		}
