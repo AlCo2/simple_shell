@@ -10,19 +10,20 @@ int main()
 	char **av = NULL;
 	char **PATHS = create_path_list();	
 	struct stat st;
+	size_t i;
+	size_t av_count;
+	char* result = NULL;
 
 	while (1)
 	{
-		size_t i;
-		char* result = NULL;
-		size_t av_count = 0;
-
+		av_count = 0;
 		printf("\n$ ");
 		nread = getline(&line, &len, stdin);
 		line[nread - 1] = '\0';
-		if (strcmp(line, "exit") == 0){
+		if (strcmp(line, "exit") == 0)
+		{
 			free(line);
-			i=0;
+			i = 0;
 			while (PATHS[i])
 			{
 				free(PATHS[i]);
@@ -36,7 +37,7 @@ int main()
 		av = create_cmd(token, &av_count);
 		if (result){
 			free(av[0]);
-			av[0] = malloc(strlen(result)+1);
+			av[0] = malloc(strlen(result) + 1);
 			if (av[0]==NULL){
 				perror("Out of memory");
 				return (1);

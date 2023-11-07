@@ -1,7 +1,9 @@
 #include "shell.h"
 
-char** create_cmd(char* token, size_t *av_count){
+char** create_cmd(char* token, size_t *av_count)
+{
         char **av = NULL;
+
         while (token != NULL)
         {
                 (*av_count)++;
