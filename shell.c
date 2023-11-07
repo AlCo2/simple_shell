@@ -57,6 +57,7 @@ int main(void)
 		{
 			free(av[i]);
 		}
+		free(av);
 		wait(&status);
 	}
 	return (0);
