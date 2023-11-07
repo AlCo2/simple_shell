@@ -9,7 +9,6 @@ int main()
 	char *token = NULL;
 	char **av = NULL;
 	char **PATHS = create_path_list();	
-	struct stat st;
 	size_t i;
 	size_t av_count;
 	char* result = NULL;
