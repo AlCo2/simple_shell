@@ -1,6 +1,6 @@
 #include "shell.h"
 
-int main()
+int main(void)
 {
 	char *line = NULL;
 	size_t len = 0;
@@ -8,10 +8,10 @@ int main()
 	int status;
 	char *token = NULL;
 	char **av = NULL;
-	char **PATHS = create_path_list();	
+	char **PATHS = create_path_list();
 	size_t i;
 	size_t av_count;
-	char* result = NULL;
+	char *result = NULL;
 
 	while (1)
 	{
@@ -34,10 +34,12 @@ int main()
 		token = strtok(line, " ");
 		result = check_path(token, PATHS);
 		av = create_cmd(token, &av_count);
-		if (result){
+		if (result)
+		{
 			free(av[0]);
 			av[0] = malloc(strlen(result) + 1);
-			if (av[0]==NULL){
+			if (av[0] == NULL)
+			{
 				perror("Out of memory");
 				return (1);
 			}
