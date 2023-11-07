@@ -10,9 +10,9 @@
 #include <sys/stat.h>
 
 /*functions:                           */
-char *check_path(char *token,char **PATHS);
+char *check_path(char *token, char **PATHS);
 char **create_path_list();
 void executeCMD(char **av);
-char** create_cmd(char* token, size_t *av_count);
+char **create_cmd(char *token, size_t *av_count);
 
 #endif

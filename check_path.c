@@ -1,10 +1,18 @@
 #include "shell.h"
 
+/**
+ * check_path - a function that check if command exist in path list
+ *
+ * @token: the command
+ * @PATHS: the path list
+ *
+ * Return: Path if exist
+*/
 char *check_path(char *token, char **PATHS)
 {
 	struct stat st;
 	char *temp = NULL;
-	int i=0;
+	int i = 0;
 
 	if (strchr(token, '/') != NULL)
 	{
@@ -12,10 +20,10 @@ char *check_path(char *token, char **PATHS)
 		if (temp == NULL)
 		{
 			perror("Out of memory");
-		       	exit(1);
+			exit(1);
 		}
 		if (stat(temp, &st) == 0)
-			return temp;
+			return (temp);
 		free(temp);
 		return (NULL);
 	}

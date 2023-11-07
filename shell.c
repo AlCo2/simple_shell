@@ -1,5 +1,11 @@
 #include "shell.h"
 
+/**
+ * main - the main function that run the loop for the shell
+ *
+ * Return: (0)
+*/
+
 int main(void)
 {
 	char *line = NULL;

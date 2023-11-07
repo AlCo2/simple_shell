@@ -1,5 +1,13 @@
 #include "shell.h"
 
+/**
+ * create_cmd - function that create command with path and arg
+ *
+ * @token: the commnad and the args
+ * @av_count: arguments counter
+ *
+ * Return: command created
+*/
 char **create_cmd(char *token, size_t *av_count)
 {
 	char **av = NULL;
