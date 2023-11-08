@@ -21,14 +21,12 @@ void executeCMD(char **av)
 	}
 	if (pid == 0)
 	{
-
 		if (execv(av[0], av) == -1)
 		{	
 			perror("Error");
 			exit(1);
 		}
-	}
-	else
+	}else
 	{
 		wait(&status);
 	}

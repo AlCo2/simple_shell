@@ -32,7 +32,7 @@ int main(void)
 			free(PATHS);
 			break;
 		}
-		av = create_cmd(line);
+		av = create_cmd(line, PATHS);
 		executeCMD(av);
 	}
 	return (0);

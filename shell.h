@@ -13,7 +13,7 @@
 char *check_path(char *token, char **PATHS);
 char **create_path_list();
 void executeCMD(char **av);
-char **create_cmd(char *token);
+char **create_cmd(char *token, char **path);
 char **split_string(char *input, char *delim);
 
 #endif
