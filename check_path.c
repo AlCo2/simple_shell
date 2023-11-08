@@ -8,6 +8,7 @@
  *
  * Return: Path if exist
 */
+
 char *check_path(char *token, char **PATHS)
 {
 	struct stat st;
