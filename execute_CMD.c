@@ -10,13 +10,27 @@
 
 void executeCMD(char **av)
 {
-	if (fork() == 0)
+	int status;
+	pid_t pid;
+
+	pid = fork();
+	if (pid == -1)
 	{
-		if (execve(av[0], av, NULL) == -1)
-		{
+		perror("error");
+		exit(1);
+	}
+	if (pid == 0)
+	{
+
+		if (execv(av[0], av) == -1)
+		{	
 			perror("Error");
 			exit(1);
 		}
+	}
+	else
+	{
+		wait(&status);
 	}
 }
 
