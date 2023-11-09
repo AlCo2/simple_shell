@@ -10,7 +10,7 @@
 
 void executeCMD(char **av)
 {
-	if (execv(av[0], av) == -1)
+	if (execve(av[0], av, environ) == -1)
 	{	
 		perror("Error");
 		exit(1);

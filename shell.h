@@ -9,6 +9,8 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 
+extern char **environ;
+
 /*functions:                           */
 char *check_path(char *token, char **PATHS);
 char **create_path_list();
