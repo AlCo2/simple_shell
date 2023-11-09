@@ -39,7 +39,10 @@ int main(int argc, char **argv)
 		}
 		if(line[0] == 'c' && line[1] == 'd' && line[2] == ' ')
 		{
-			printf("changed directory: %s\n", line+3);
+			if(chdir(line + 3) == -1)
+			{
+				printf("%s: 10: can't cd to %s", argv[0], line + 3);
+			}
 			continue;
 		}
 		if (fork() == 0)
