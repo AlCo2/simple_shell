@@ -6,27 +6,25 @@
  * Return: (0)
 */
 
-int cmd_count = 0;
-
 int main(int argc, char **argv)
 {
 	char *line = NULL;
 	size_t len = 0;
 	ssize_t nread = 0;
 	char **PATHS = create_path_list();
-	int i;
-	
+	int i, cmd_count = 0;
 	(void)argc;
 	(void)argv;
+
 	while (1)
 	{
 		cmd_count++;
-		if(isatty(fileno(stdin)))
+		if (isatty(fileno(stdin)))
 		{
 			printf("\n$ ");
 		}
 		nread = getline(&line, &len, stdin);
-		if(nread == -1)
+		if (nread == -1)
 		{
 			break;
 		}
@@ -43,9 +41,9 @@ int main(int argc, char **argv)
 			free(PATHS);
 			break;
 		}
-		if(line[0] == 'c' && line[1] == 'd' && line[2] == ' ')
+		if (line[0] == 'c' && line[1] == 'd' && line[2] == ' ')
 		{
-			if(chdir(line + 3) == -1)
+			if (chdir(line + 3) == -1)
 			{
 				printf("%s: 10: can't cd to %s", argv[0], line + 3);
 			}
@@ -53,7 +51,7 @@ int main(int argc, char **argv)
 		}
 		if (fork() == 0)
 		{
-			executeCMD(create_cmd(line, PATHS), argv[0]);
+			executeCMD(create_cmd(line, PATHS), argv[0], cmd_count);
 		}
 		wait(0);
 	}

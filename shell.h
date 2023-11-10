@@ -10,12 +10,11 @@
 #include <sys/stat.h>
 
 extern char **environ;
-extern int cmd_count;
 
 /*functions:                           */
 char *check_path(char *token, char **PATHS);
 char **create_path_list();
-void executeCMD(char **av, char *argv);
+void executeCMD(char **av, char *argv, int cmd_count);
 char **create_cmd(char *token, char **path);
 char **split_string(char *input, char *delim);
 

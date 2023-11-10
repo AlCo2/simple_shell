@@ -4,10 +4,11 @@
  * create_cmd - function that create command with path and arg
  *
  * @token: the commnad and the args
- * @av_count: arguments counter
+ * @path: getenv("PATH")
  *
  * Return: command created
 */
+
 char **create_cmd(char *token, char **path)
 {
 	char **av = NULL;

@@ -13,7 +13,7 @@ char **split_string(char *input, char *delim)
 {
 	char **list = NULL;
 	int i = 0;
-	char* token = strtok(input, delim);
+	char *token = strtok(input, delim);
 
 	while (token != NULL)
 	{
