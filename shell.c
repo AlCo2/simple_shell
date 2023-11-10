@@ -2,7 +2,7 @@
 
 /**
  * main - the main function that run the loop for the shell
- * 
+ *
  * @argc: total argv passed
  * @argv: arguments passed to program
  *
@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 		cmd_count++;
 		if (isatty(fileno(stdin)))
 		{
-			printf("\n$ ");
+			printf("$ ");
 		}
 		nread = getline(&line, &len, stdin);
 		if (nread == -1)

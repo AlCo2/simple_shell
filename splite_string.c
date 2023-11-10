@@ -33,6 +33,7 @@ char **split_string(char *input, char *delim)
 		token = strtok(NULL, delim);
 		i++;
 	}
+	list = realloc(list, (i+1) * sizeof(char *));
 	list[i] = NULL;
 	return (list);
 }
