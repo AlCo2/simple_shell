@@ -1,6 +1,6 @@
 #include "shell.h"
 
-/*
+/**
  * split_string - function to split string into a list
  *
  * @input: the string

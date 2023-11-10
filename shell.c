@@ -2,6 +2,9 @@
 
 /**
  * main - the main function that run the loop for the shell
+ * 
+ * @argc: total argv passed
+ * @argv: arguments passed to program
  *
  * Return: (0)
 */

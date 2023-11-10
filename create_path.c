@@ -10,6 +10,7 @@ char **create_path_list()
 {
 	char *paths = getenv("PATH");
 	char **list = NULL;
+
 	list = split_string(paths, ":");
 	return (list);
 }
