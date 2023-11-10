@@ -6,6 +6,8 @@
  * Return: (0)
 */
 
+int cmd_count = 0;
+
 int main(int argc, char **argv)
 {
 	char *line = NULL;
@@ -18,7 +20,11 @@ int main(int argc, char **argv)
 	(void)argv;
 	while (1)
 	{
-		printf("\n$ ");
+		cmd_count++;
+		if(isatty(fileno(stdin)))
+		{
+			printf("\n$ ");
+		}
 		nread = getline(&line, &len, stdin);
 		if(nread == -1)
 		{
@@ -47,7 +53,7 @@ int main(int argc, char **argv)
 		}
 		if (fork() == 0)
 		{
-			executeCMD(create_cmd(line, PATHS));
+			executeCMD(create_cmd(line, PATHS), argv[0]);
 		}
 		wait(0);
 	}

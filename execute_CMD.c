@@ -8,11 +8,11 @@
  * Return: nothing.
 */
 
-void executeCMD(char **av)
+void executeCMD(char **av, char *argv)
 {
 	if (execve(av[0], av, environ) == -1)
-	{	
-		perror("Error");
+	{
+		printf("%s: %d: %s: not found", argv, cmd_count, av[0]);
 		exit(1);
 	}
 }
