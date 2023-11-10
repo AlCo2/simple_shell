@@ -32,6 +32,14 @@ int main(int argc, char **argv)
 			break;
 		}
 		line[nread - 1] = '\0';
+		i = 0;
+		while (line[i] == ' ')
+		{
+			i++;
+		}
+		line = line+i;
+		if (strlen(line) < 1)
+			continue;
 		if (strcmp(line, "exit") == 0)
 		{
 			free(line);
