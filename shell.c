@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 		{
 			if (chdir(line + 3) == -1)
 			{
-				printf("%s: 10: can't cd to %s", argv[0], line + 3);
+				printf("%s: %d: can't cd to %s\n", argv[0], cmd_count, line + 3);
 			}
 			continue;
 		}
